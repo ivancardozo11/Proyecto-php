@@ -41,7 +41,7 @@
       <div class="col-md-12">
         <footer>
           This is a footer<br>
-          <a href="http://localhost/CursoPHP/blog/public/admin">Admin panel</a>
+          <a href="<?php echo BASE_URL;  ?>admin/posts">Admin panel</a>
         </footer>
       </div>
     </div>  <!-- / row 3 -->

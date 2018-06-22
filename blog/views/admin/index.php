@@ -17,7 +17,7 @@
         <h2>Admin panel</h2>
         <ul>
           <li>
-            <a href="admin/posts">Manage Posts</a>
+            <a href="<?php echo BASE_URL;  ?>admin/posts">Manage Posts</a>
           </li>
         </ul>
 
@@ -30,7 +30,7 @@
       <div class="col-md-12">
         <footer>
           This is a footer<br>
-          <a href="http://localhost/CursoPHP/blog/public/admin">Admin panel</a>
+          <a href="<?php echo BASE_URL;  ?>admin">Admin panel</a>
         </footer>
       </div>
     </div>  <!-- / row 3 -->
