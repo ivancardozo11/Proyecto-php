@@ -14,12 +14,8 @@
     </div>  <!-- /aca termina el row Blog title -->
     <div class="row">
       <div class="col-md-8">
-        <h2>Admin panel</h2>
-        <ul>
-          <li>
-            <a href="<?php echo BASE_URL;  ?>admin/posts">Manage Posts</a>
-          </li>
-        </ul>
+        
+{% block content %}{% endblock  %}
 
       </div><!--  / col-md-8 termina aqui -->
       <div class="col-md-4">
@@ -30,7 +26,7 @@
       <div class="col-md-12">
         <footer>
           This is a footer<br>
-          <a href="<?php echo BASE_URL;  ?>admin">Admin panel</a>
+          <a href="{{ 'admin' | url }}">Admin panel</a>
         </footer>
       </div>
     </div>  <!-- / row 3 -->
