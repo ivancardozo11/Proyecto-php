@@ -3,16 +3,15 @@
 namespace App\Controllers\Admin;
 
 use App\Controllers\BaseController;
+use App\Models\BlogPost;
+use Sirius\Validation\Validator;
+
+
 class PostController extends BaseController{
 
 
     public function getIndex() {
-      global $pdo ;
-      $query = $pdo->prepare('SELECT * FROM blog_posts ORDER BY id DESC');
-      $query->execute();
-      $blogPosts = $query->fetchAll(\PDO::FETCH_ASSOC);
-
-
+      $blogPosts = BlogPost::all();
       return $this->render('admin/posts.twig',  ['blogPosts' => $blogPosts]);
     }
 
@@ -22,16 +21,29 @@ return $this->render('admin/insert-post.twig');
 }
 
 public function postCreate(){
+    $errors = [];
+    $result = false;
+    $validator = new Validator();
+    $validator->add('title' , 'required');
+    $validator->add('content' , 'required');
 
-  global $pdo;
+    if ($validator->validate($_POST)) {
 
-  $sql = 'INSERT INTO blog_posts (title , content) VALUES(:title , :content)';
-  $query = $pdo->prepare($sql);
+      $blogPost = new BlogPost([
+        'title'  =>   $_POST['title'],
+        'content'=>   $_POST['content']
+      ]);
+      $blogPost->save();
+      $result = true;
+    }else {
+      $errors = $validator->getMessages();
+      
+    }
 
-  $result = $query->execute([
-   'title'=> $_POST['title'],
-   'content'=> $_POST['content']
-  ]);
-  return $this->render('admin/insert-post.twig', ['result', $result]);
+  return $this->render('admin/insert-post.twig', [
+    'result'=> $result,
+    'errors'=> $errors
+
+   ]);
 }
 }
