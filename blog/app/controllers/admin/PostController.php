@@ -33,11 +33,14 @@ public function postCreate(){
         'title'  =>   $_POST['title'],
         'content'=>   $_POST['content']
       ]);
+      if($_POST['img']){
+        $blogPost->img_url= $_POST['img'];
+      }
       $blogPost->save();
       $result = true;
     }else {
       $errors = $validator->getMessages();
-      
+
     }
 
   return $this->render('admin/insert-post.twig', [
