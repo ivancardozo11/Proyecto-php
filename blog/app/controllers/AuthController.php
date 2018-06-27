@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Controllers;
+use App\Log;
 use App\Controllers\BaseController;
 use App\Models\User;
 use Sirius\Validation\Validator;
+
 
 class AuthController extends BaseController {
 
@@ -21,6 +23,7 @@ class AuthController extends BaseController {
       if ($user){
         if(password_verify($_POST['password'], $user->password)){
           $_SESSION['userId'] = $user->id;
+          Log::logInfo('Login userId:'. $user->id);
           header('Location:' . BASE_URL . 'admin');
           return null;
         }
@@ -35,6 +38,7 @@ class AuthController extends BaseController {
   }
 
   public function getLogout(){
+    Log::logError('Logout userId:'. $_SESSION['userId']);
     unset($_SESSION['userId']);
     header('Location:' . BASE_URL. 'auth/login');
   }
